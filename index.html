@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <script type="text/javascript" src="assets/js/epos-print-4.1.0.js"></script>
+    <script type="text/javascript" src="assets/js/print.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="text-center">
+        <h1 class="mt-4">192.168.1.10</h1>
+        <button class="btn btn-primary btn-lg mt-4" id="print-order">Print</button>
+        <hr>
+        <i id="wait-im-printing" class="fas fa-10x fa-spinner fa-pulse mt-4"></i>
+    </div>
+    <h2 class="mt-4">Print info</h2>
+    <ul>
+        <li>Logo deliverart</li>
+        <li>Order ID</li>
+        <li>Ora di preparazione</li>
+        <li>Customer name (non sempre disponibile)</li>
+        <li>Items[]:
+            <ul>
+                <li>Nome</li>
+                <li>Quantità</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div hidden>
+    <canvas id="logo-canvas" width="302" height="257"></canvas>
+    <canvas id="line-canvas" width="580" height="5"></canvas>
+    <img id="logo" src="assets/img/logo-print-deliverart.png" alt="Deliverart">
+    <img id="solid-line" src="assets/img/line.png" alt="Solid Line">
+    <img id="dotted-line" src="assets/img/dotted-line.gif" alt="Dotted Line">
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.8.23/dayjs.min.js"  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.8.23/locale/it.js"  crossorigin="anonymous"></script>
+<script>
+    dayjs.locale('it');
+
+    var ipaddr = '192.168.1.10';
+    var sequence = 1;
+    var devid = 'local_printer';
+    var timeout = '60000';
+    var grayscale = false;
+    var layout = false;
+    var logoSize = {
+        width: 302,
+        heigth: 257
+    };
+    var lineSize = {
+        width: 580,
+        heigth: 5
+    };
+
+    $(function () {
+        $('#wait-im-printing').hide();
+
+        $('#print-order').click(function () {
+            var btn = $(this);
+            btn.removeClass('btn-primary').addClass('btn-danger');
+            var jqxhr = $.getJSON('assets/db/orders.json' , function() {
+                    console.log( "success" );
+                })
+                .done(function(data) {
+                    $('#wait-im-printing').show('fast');
+                    printOrder(data.orders[1]);
+                })
+                .fail(function(data) {
+                    // console.log(data);
+                })
+                .always(function() {
+                    btn.removeClass('btn-danger').addClass('btn-primary');
+                    $('#wait-im-printing').hide('slow');
+                });
+
+
+        });
+    });
+
+</script>
+</body>
+</html>
