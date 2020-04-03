@@ -79,6 +79,7 @@ function printOrder(order) {
         builder.addTextSize(1, 1);
         builder.addText(order.note);
         builder.addText( '\n');
+        builder.addTextStyle(false, false, false);
         builder.addFeedUnit(20);
     }
 
@@ -191,7 +192,7 @@ function printOrder(order) {
         _addLine();
         _orderItemsCosts(order);
         _addLine();
-        _orderTotalCosts(order)
+        _orderTotalCosts(order);
         _addLine();
         _addNow();
 
