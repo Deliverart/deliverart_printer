@@ -17,30 +17,35 @@
                 "city": "Roma"
             },
             "note": "7° piano interno 23, non c'è ascensore, spiace",
+            "total_costs": "70€",
             "items": [
                 {
                     "category": "Pizza",
                     "name": "Pizza peppperonni",
                     "note": "Senza odio di palma, pomodori e alici",
-                    "quantity": 1
+                    "quantity": 1,
+                    "price": "10€"
                 },
                 {
                     "category": "Pizza",
                     "name": "Pizza peppperonni",
                     "note": null,
-                    "quantity": 1
+                    "quantity": 1,
+                    "price": "10€"
                 },
                 {
                     "category": "Secondi di pesce",
                     "name": "Impepata di cozze e capperi",
                     "note": null,
-                    "quantity": 2
+                    "quantity": 2,
+                    "price": "20€"
                 },
                 {
                     "category": "Pizza",
                     "name": "Diavola",
                     "note": "Senza peperoncino",
-                    "quantity": 1
+                    "quantity": 1,
+                    "price": "10€"
                 }
             ]
         },
@@ -63,24 +68,28 @@
                 "city": "Roma"
             },
             "note": "Piano terra int 1, c'è ascensore",
+            "total_costs": "32€",
             "items": [
                 {
                     "category": "Pasta e primi piatti",
                     "name": "Carbonara",
                     "note": "Con odio di palma e senza uovo",
-                    "quantity": 1
+                    "quantity": 1,
+                    "price": "13€"
                 },
                 {
                     "category": "Pasta e primi piatti",
                     "name": "Amatriciana",
                     "note": null,
-                    "quantity": 1
+                    "quantity": 1,
+                    "price": "11€"
                 },
                 {
                     "category": "Pasta e primi piatti",
                     "name": "Gricia",
                     "note": "Con molto pepe",
-                    "quantity": 1
+                    "quantity": 1,
+                    "price": "8€"
                 }
             ]
         }

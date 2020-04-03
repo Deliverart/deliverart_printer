@@ -92,6 +92,14 @@ function printOrder(order) {
         builder.addFeedUnit(20);
     }
 
+    function _orderTotalCosts(order) {
+        builder.addTextAlign(builder.ALIGN_RIGHT);
+        builder.addTextDouble(true, false).addText('Totale: ');
+        builder.addText(order.total_costs);
+        builder.addText('\n');
+        builder.addFeedUnit(20);
+    }
+
     function _addNow() {
         var now = new dayjs();
         builder.addTextAlign(builder.ALIGN_RIGHT);
@@ -130,6 +138,32 @@ function printOrder(order) {
         });
     }
 
+    function _orderItemsCosts(order) {
+
+        var itemCategory;
+        order.items.forEach(function (item, index) {
+            builder.addTextAlign(builder.ALIGN_LEFT);
+
+            if (itemCategory !== item.category) {
+                _itemCategory(item);
+                itemCategory = item.category;
+            }
+            builder.addTextDouble(false, true).addText('  ');
+            builder.addTextDouble(false, true).addText(item.quantity);
+            builder.addTextDouble(false, true).addText(' - ');
+            builder.addTextDouble(false, true).addText(item.name);
+
+            builder.addText('\n');
+            builder.addFeedUnit(5);
+            builder.addTextAlign(builder.ALIGN_RIGHT);
+            builder.addTextDouble(true, false).addText(item.price);
+            builder.addText('\n');
+
+            builder.addFeedUnit(20);
+        });
+        builder.addTextAlign(builder.ALIGN_LEFT);
+    }
+
     (function ticketBuilder(builder, order) {
         builder.addTextLang('it').addTextSmooth(true);
 
@@ -155,6 +189,10 @@ function printOrder(order) {
         _addLine();
         _orderItems(order);
         _addLine();
+        _orderItemsCosts(order);
+        _addLine();
+        _orderTotalCosts(order)
+        _addLine();
         _addNow();
 
         builder.addCut();
@@ -163,7 +201,7 @@ function printOrder(order) {
     })(builder, order);
 
     function print(builder) {
-        var url = 'http://' + ipaddr + '/cgi-bin/epos/service.cgi?devid=' + devid + '&timeout=' + timeout;
+        var url = 'https://' + ipaddr + '/cgi-bin/epos/service.cgi?devid=' + devid + '&timeout=' + timeout;
         var epos = new epson.ePOSPrint(url);
 
         epos.send(builder.toString());
